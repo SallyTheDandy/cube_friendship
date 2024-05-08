@@ -28,12 +28,16 @@ let prevhue
 let bgHue =0
 let bgSaturation =0
 let bgBrightness =86
+let hueMode=1
+let saturationMode=1
+let brightnessMode=1
 let friend
 let friends = []
 let friendsXcoordinates = []
 let friendsYcoordinates = []
 function setup() {
   colorMode(HSB)
+rectMode(CENTER)
   createCanvas(windowWidth, windowHeight,WEBGL);
   angleMode(DEGREES)
   prevYrot=0
@@ -86,8 +90,13 @@ function draw() {
  // pointLight(map(mouseX,0,width,0,255),map(mouseY,0,height,0,255),map(abs(pmouseX-mouseX),0,40,100,255), locX, locY, 100)
   currentlefteyeno = floor(map(mouseX,0,width,1,16,1))
   //fill(map(mouseX,0,width,0,255),map(mouseY,0,height,0,255),map(abs(pmouseX-mouseX),0,40,100,255))
-  hugh=lerp(prevhugh,map(mouseX,0,width,0,255),.9)
+  //hugh=lerp(prevhugh,map(abs(width/2-mouseX),0,width/2,0,255),1)
+  hugh=lerp(prevhugh,map(mouseY,0,height,0,255),.9)
    prevhugh=hugh
+   //satration =lerp(prevsatration,map(abs(pmouseX-mouseX),0,40,40,100),.09)
+   //map(abs(width/2-mouseX),0,width/2,0,255)
+   //map(mouseY,0,height,0,255)
+   //satration =lerp(prevsatration,map(mouseY,0,height,0,255),.2)
    satration =lerp(prevsatration,map(abs(pmouseX-mouseX),0,40,40,100),.05)
    prevsatration=satration
  // let brightnes=map(abs(pmouseX-mouseX),0,40,255,0)
@@ -129,7 +138,6 @@ garble=lerp(prevXrot,-map(mouseY,0,height,-90,90)/2,1.9)
  //rotateY(-mouseY/width*200)
  box(100, 100, 110, cubeSize);
  strokeWeight(2)
- stroke(bgHue, bgSaturation, bgBrightness)
   roundedCube(cubeHeight,cuberadius)
   //rotateX(90)
   //rotateX(90)
@@ -142,8 +150,8 @@ garble=lerp(prevXrot,-map(mouseY,0,height,-90,90)/2,1.9)
 
   pop()
   friends.forEach(f=>{
-    f.display()
     f.orbit()
+    f.display()
   })
   prevYrot=varble
   prevXrot=garble
@@ -155,11 +163,12 @@ garble=lerp(prevXrot,-map(mouseY,0,height,-90,90)/2,1.9)
  //rect(0,0,width,height)
  //text('hi.', -100, 150);
 //  text('-the cubious cube',-50,180)
-
+orbitControl()
 }
 function roundedCube(cubeWidth, radius) {
   push()
  // lights();
+
 //roundedcube code by flomerboy! their sketch is here https://editor.p5js.org/flomerboy/sketches/uq7nB_Dy
   //walls
   //fill(map(mouseX,0,width,255,0),map(mouseY,0,height,0,100),brightnes)
@@ -174,6 +183,7 @@ function roundedCube(cubeWidth, radius) {
   //fill(hugh,satration,brightnes)
   box(cubeWidth - radius, cubeWidth - radius, cubeWidth);
   fill(hugh,satration,map(abs(pmouseX-mouseX),0,40,100,255))
+ // fill('black')
   //corners
   translate((cubeWidth - radius) / 2, (cubeWidth - radius) / 2, (cubeWidth - radius) / 2);
   sphere(radius / 2, 10, 10);
@@ -228,11 +238,16 @@ function mouseClicked()
 {
 //friendsXcoordinates.push(mouseX)
 //friendsYcoordinates.push(mouseY)
-friends.push(new Friend(mouseX-width/2,mouseY-height/2,-200))
+friends.push(new Friend(mouseX-width/2,mouseY-height/2,0))
 bgHue=floor(random(0,255))
 bgSaturation=floor(random(0,10))
 //bgBrightness=floor(random(50,100))
 
+}
+function keyPressed(){
+if (keyCode === DELETE){
+  friends.pop
+}
 }
 class Friend {
   constructor(x,y,z){
@@ -245,20 +260,20 @@ class Friend {
     this.myrighteye=currentrighteye
     this.mylefteye= currentlefteye
     this.mouthno=currentmouthno
-    this.orbitXspeed=random(-2,2)
-    this.orbitYspeed=random(-2,2)
-    this.orbitZspeed=random(-1,1)
+    this.orbitXspeed=random(-.5,.5)
+    this.orbitYspeed=random(-.5,.5)
+    this.orbitZspeed=random(-.5,.5)
     this.hue=hugh
     this.saturation=satration
     this.brightness=brightnes
   }
   display(){
     push()
-    translate(this.pos.x,this.pos.y,this.pos.z)
     scale(this.scale)
+    translate(this.pos.x+garble/10,this.pos.y+varble/10,this.pos.z)
+    //translate(this.pos.x,this.pos.y,this.pos.z)
     rotateY(frameCount*this.rotYspeed)
-
-  rotateX(frameCount*this.rotXspeed)
+ rotateX(frameCount*this.rotXspeed)
   rotateZ(frameCount*this.rotZspeed)
     //box(100)
     //noStroke()
@@ -275,8 +290,10 @@ class Friend {
    pop()
   }
   orbit(){
-  //rotateX(frameCount*this.orbitXspeed)
-  //rotateY(frameCount*this.orbitYspeed)
+       
+    //rotateX(garble)
+  rotateX(frameCount*this.orbitXspeed)
+  rotateY(frameCount*this.orbitYspeed)
  rotateZ(frameCount*this.orbitZspeed)
 
   }
