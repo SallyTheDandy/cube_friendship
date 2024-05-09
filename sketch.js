@@ -130,7 +130,7 @@ textSize(20)
 fill('#ff8cfd')
 text('click          ',-width/2+50,-350)
 fill('white')
-text('         to propogate',-width/2+50,-350)
+text('         to propagate',-width/2+50,-350)
 fill('#ff8cfd')
 text('                              friendship',-width/2+50,-350)
 
