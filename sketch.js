@@ -61,7 +61,7 @@ rectMode(CENTER)
   
 }
 function preload(){
-  soundFormats('wav','mp3')
+  //soundFormats('wav','mp3')
   sans= loadFont('COMICSANSITALIC.TTF')
   frame= loadImage('parts/frame.png')
   for (let i=1; i<eyetypes;i++){
@@ -79,8 +79,8 @@ function preload(){
     loaded_image = loadImage(path)
   mouths.push(loaded_image)
 }
-sounds.push(loadSound('sounds/buddy2.mp3'))
-buddy=loadSound('sounds/buddy2.mp3')
+//sounds.push(loadSound('sounds/buddy2.mp3'))
+//buddy=loadSound('sounds/buddy2.mp3')
 }
   //str(i)
 
@@ -254,9 +254,9 @@ function roundedCube(cubeWidth, radius) {
 function mouseClicked()
 {
   //play(friendnoise)
-  let friendnoise=random(sounds)
-  friendnoise.play
-  buddy.play
+ // let friendnoise=random(sounds)
+  //friendnoise.play
+ // buddy.play
 //friendsXcoordinates.push(mouseX)
 //friendsYcoordinates.push(mouseY)
 friends.push(new Friend(mouseX-width/2,mouseY-height/2,0))
