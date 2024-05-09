@@ -33,6 +33,7 @@ let hueMode=1
 let saturationMode=1
 let brightnessMode=1
 let friend
+let buddy
 let friends = []
 let friendsXcoordinates = []
 let friendsYcoordinates = []
@@ -51,6 +52,7 @@ rectMode(CENTER)
   currentlefteyeno=1
   currentrighteyeno=1
 
+
   friend=new Friend(100,100)
  // frameRate(24)
   //sans= loadFont('COMICSANS.TTF')
@@ -59,7 +61,7 @@ rectMode(CENTER)
   
 }
 function preload(){
-  soundFormats('wav')
+  soundFormats('wav','mp3')
   sans= loadFont('COMICSANSITALIC.TTF')
   frame= loadImage('parts/frame.png')
   for (let i=1; i<eyetypes;i++){
@@ -78,6 +80,7 @@ function preload(){
   mouths.push(loaded_image)
 }
 sounds.push(loadSound('sounds/buddy2.mp3'))
+buddy=loadSound('sounds/buddy2.mp3')
 }
   //str(i)
 
@@ -253,6 +256,7 @@ function mouseClicked()
   //play(friendnoise)
   let friendnoise=random(sounds)
   friendnoise.play
+  buddy.play
 //friendsXcoordinates.push(mouseX)
 //friendsYcoordinates.push(mouseY)
 friends.push(new Friend(mouseX-width/2,mouseY-height/2,0))
