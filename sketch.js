@@ -25,6 +25,7 @@ let varble
 let garble, hugh,satration,brightnes
 let prevsatration
 let prevhue
+let sounds =[]
 let bgHue =0
 let bgSaturation =0
 let bgBrightness =86
@@ -58,7 +59,8 @@ rectMode(CENTER)
   
 }
 function preload(){
-  sans= loadFont('COMICSANS.TTF')
+  soundFormats('wav')
+  sans= loadFont('COMICSANSITALIC.TTF')
   frame= loadImage('parts/frame.png')
   for (let i=1; i<eyetypes;i++){
       path= 'parts/eyes/rightEye/' + i + '.png'
@@ -75,6 +77,7 @@ function preload(){
     loaded_image = loadImage(path)
   mouths.push(loaded_image)
 }
+sounds.push(loadSound('sounds/buddy2.mp3'))
 }
   //str(i)
 
@@ -91,7 +94,7 @@ function draw() {
   currentlefteyeno = floor(map(mouseX,0,width,1,16,1))
   //fill(map(mouseX,0,width,0,255),map(mouseY,0,height,0,255),map(abs(pmouseX-mouseX),0,40,100,255))
   //hugh=lerp(prevhugh,map(abs(width/2-mouseX),0,width/2,0,255),1)
-  hugh=lerp(prevhugh,map(mouseY,0,height,0,255),.9)
+  hugh=lerp(prevhugh,map(mouseY,0,height,0,255)*(1+sin(frameCount)/2),.9)
    prevhugh=hugh
    //satration =lerp(prevsatration,map(abs(pmouseX-mouseX),0,40,40,100),.09)
    //map(abs(width/2-mouseX),0,width/2,0,255)
@@ -119,7 +122,16 @@ function draw() {
   currentlefteye = lefteyes[currentlefteyeno]
   currentmouth=mouths[currentmouthno]
 //strokeWeight(20)
+textFont(sans)
+textSize(20)
+fill('#ff8cfd')
+text('click          ',-width/2+50,-350)
+fill('white')
+text('         to propogate',-width/2+50,-350)
+fill('#ff8cfd')
+text('                              friendship',-width/2+50,-350)
 
+fill(hugh,satration,brightnes)
   push()
    //normalMaterial();
    //shininess(50)
@@ -157,12 +169,14 @@ garble=lerp(prevXrot,-map(mouseY,0,height,-90,90)/2,1.9)
   prevXrot=garble
  // tint(236, 112, 255,100)
   fill(255, 166, 228)
+  fill('#ff8cfd')
 //orbitControl();
   textFont(sans)
   textSize(20)
  //rect(0,0,width,height)
  //text('hi.', -100, 150);
-//  text('-the cubious cube',-50,180)
+ //text('-the cubious cube',-50,180)
+
 orbitControl()
 }
 function roundedCube(cubeWidth, radius) {
@@ -236,6 +250,9 @@ function roundedCube(cubeWidth, radius) {
 }
 function mouseClicked()
 {
+  //play(friendnoise)
+  let friendnoise=random(sounds)
+  friendnoise.play
 //friendsXcoordinates.push(mouseX)
 //friendsYcoordinates.push(mouseY)
 friends.push(new Friend(mouseX-width/2,mouseY-height/2,0))
